@@ -4,7 +4,7 @@ from settings import *
 
 
 intents = discord.Intents(members=True, presences=True, guilds=True, messages=True, reactions=True)
-afk = {}
+afk1 = {}
 bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 
@@ -134,7 +134,7 @@ async def rolver(ctx, member: discord.Member, role: discord.Role):
         await member.add_roles(role.id)
 
 
-@commands.has_permissions(manage_roles=True)
+@commands.has_permissions(manage_roles=True)# Sunucuda belirlediğiniz bir rolü verir. Aliases bölümüne "" içinde yetkinizin adını yazarsanız (.yetkiismi) şeklinde kullanabilir
 @bot.command(aliases=[])
 async def rol1(ctx, member: discord.Member):
     yetkilirol1 = member.guild.get_role(yetki1)
@@ -190,7 +190,7 @@ async def rol4(ctx, member: discord.Member):
     await member.add_roles(yetkilirol4)
 
 
-@commands.has_permissions(manage_guild=True)
+@commands.has_permissions(manage_guild=True) # Say komutu sunucunuz hakkında bilgi verir. Tagınız yok ise 197.satırı siliniz ve 210. satırdan Tag mesajının bulunduğu yeri siliniz.
 @bot.command(pass_context=True)
 async def say(ctx):
     count = 0
@@ -207,14 +207,14 @@ async def say(ctx):
     uye = uye + len(users)
 
     sayy = discord.Embed(title="",
-                         description=f"Toplam seste ``{count}`` kişi bulunuyor.\n Toplam sunucuda ``{uye}`` var.\n Toplam tagımızda ``{tag}`` kullanıcı bulunmakta.\n Toplam sunucuda aktif ``{online}`` üye var.")
+                         description=f"Toplam seste ``{count}`` kişi bulunuyor.\n Toplam sunucuda ``{uye}``üye var.\n Toplam tagımızda ``{tag}`` kullanıcı bulunmakta.\n Toplam sunucuda aktif ``{online}`` üye var.")
     await ctx.channel.send(embed=sayy)
 
 
 
-@bot.command()
-async def afk1(ctx, *, reason = "Belirtilmedi!"):
-    afk[ctx.author.id] = reason
+@bot.command() #Her yerde olan afk komutudur.
+async def afk(ctx, *, reason = "Belirtilmedi!"):
+    afk1[ctx.author.id] = reason
     if not "[AFK]" in ctx.author.display_name:
         await ctx.author.edit(nick=f"[AFK] {ctx.author.display_name}")
 
@@ -231,11 +231,11 @@ async def on_message(message):
         if "[AFK]" in message.author.display_name:
             await message.author.edit(nick=message.author.display_name[6:])
 
-        if message.author.id in afk:
-            afk.pop(message.author.id)
+        if message.author.id in afk1:
+            afk1.pop(message.author.id)
             await message.channel.send("Başarıyla AFKdan çıktın!")
 
-        mentions = sum(1 for user in message.mentions if afk[user.id])
+        mentions = sum(1 for user in message.mentions if afk1[user.id])
 
         if mentions == 0: 
             return
@@ -244,7 +244,7 @@ async def on_message(message):
             await message.channel.send("Belirttiğin kullanıcılar şuanda AFK!")
             return
         else:
-            reason = afk[message.mentions[0].id]
+            reason = afk1[message.mentions[0].id]
             await message.channel.send(f"Belirttiğin kullanıcı şuanda {reason} sebebiyle AFK!")
     except:
         pass
