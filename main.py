@@ -18,7 +18,7 @@ async def on_ready():  # Bot'un çalıştığını anlamamız için konsola bir 
 async def on_member_join(member):  # Sunucuya yeni birisi geldiğinde Hoş geldin mesajı atar ve Basic Role verir.
     channel1 = bot.get_channel(welcome)
     channel2 = bot.get_channel(welcomelog)
-    role = member.guild.get_role(unregister)
+    role = member.guild.get_role(autorole)
 
     await channel1.send(f'Aramıza hoş geldin <@{member.id}>. İyi eğlencelerrr :tada:',
                         delete_after=5)
