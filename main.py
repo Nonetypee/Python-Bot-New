@@ -250,5 +250,29 @@ async def on_message(message):
         pass
 
 
+@commands.has_permissions(manage_channels=True)
+@bot.command()
+async def kilit(ctx, mode):
+    if mode == 'aç':
+        guild = ctx.guild
+        channel = ctx.channel
+        ever = guild.roles[0]
+
+        await channel.set_permissions(ever, send_messages=False)
+        kilitt=discord.Embed(title="",description="``Kanal başarıyla kilitlendi``")
+        await ctx.send(embed=kilitt)
+        return
+    elif mode == 'kapat':
+        guild = ctx.guild
+        channel = ctx.channel
+        ever = guild.roles[0]
+        
+        await channel.set_permissions(ever, send_messages=True)
+        kilittt=discord.Embed(title="",description="``Kanal kilidi kaldırıldı``")
+        await ctx.send(embed=kilittt)
+        return 
+    
+    
+    
 
 bot.run(token)
