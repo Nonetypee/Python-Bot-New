@@ -177,7 +177,7 @@ async def rol3(ctx, member: discord.Member):
 
 
 @commands.has_permissions(manage_roles=True)
-@bot.command(aliases=["dark"])
+@bot.command(aliases=[""])
 async def rol4(ctx, member: discord.Member):
     yetkilirol4 = member.guild.get_role(yetki4)
     rolelog1 = bot.get_channel(rolelog)
